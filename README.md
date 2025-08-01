@@ -84,7 +84,16 @@ AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY devem ser configurados via IAM roles e
    `http://localhost:3000/api`
 
 ---
+## Usuários de teste
 
+FrontEnd
+
+| Usuário              | Senha                         |
+|----------------------|-------------------------------|
+| alan@admin.com       | admin123                      |
+| stefanini@admin.com  | admin456                      |
+
+---
 ## Observabilidade
 
 - Logs estruturados via **Winston**;
