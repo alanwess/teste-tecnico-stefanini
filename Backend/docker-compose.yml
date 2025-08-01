@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    container_name: users-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db-test
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    container_name: users-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_HOST: users-postgres
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db-test
+      JWT_SECRET: teste-tecnico-stefanini
+      JWT_EXPIRATION: 1h
+      AWS_REGION: us-east-1
+    volumes:
+      - .:/usr/src/app
+    command: npm run start:prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  postgres_data:
